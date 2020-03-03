@@ -2,7 +2,7 @@
 
 /*
 Useful tips:
-- Once you've created a heroku app, make a note of it's name here:
+- Once you've created a heroku app, make a note of its name here:
     e.g. shielded-mountain-2347
 - Use 'npm install' to install all modules required below under LOAD MODULES
 - It's not listed in this file, but you also need to use 'npm install mongoose' for the database to work
@@ -25,11 +25,11 @@ const express = require('express'),
 
 /*
 INSTANTIATE THE APP
-- Use a custom studyName variable to help track whether you're testing, piloting, running 'study1' etc.
+- Use a custom study_name variable to help track whether you're testing, piloting, running 'study1' etc.
 - process.env.PORT will retrieve the relevant port # from Heroku if deployed,
   otherwise use port 5000 locally, which you can visit by entering 'localhost:5000' in a browser IF the app is running
 */
-const studyName = 'test';
+const study_name = 'test';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -66,9 +66,9 @@ ROUTING
 
 app.get('/', (req, res, next) => {
     // Following are MTurk-specific data
-    const workerId = req.query.workerId || '';
-    const assignmentId = req.query.assignmentId || '';
-    const hitId = req.query.hitId || '';
+    const worker_id = req.query.worker_id || '';
+    const assignment_id = req.query.assignment_id || '';
+    const hit_id = req.query.hit_id || '';
     // Generate anonymous code to identify this trial
     const trial_id = helper.makeCode(2)+'5'+helper.makeCode(5)+'RtR'+helper.makeCode(4)+'m'+helper.makeCode(2);
     // What browser is the participant using?
@@ -76,11 +76,11 @@ app.get('/', (req, res, next) => {
 
     // save above trial-specific info
     tasks.save({
-        "workerId": workerId,
-        "hitId": hitId,
-        "assignmentId": assignmentId,
+        "worker_id": worker_id,
+        "hit_id": hit_id,
+        "assignment_id": assignment_id,
         "trial_id": trial_id,
-        "studyName": studyName,
+        "study_name": study_name,
         "browser": browser,
     });
 
@@ -114,9 +114,9 @@ app.post('/data', (req, res, next) => {
   const trial_id = req.query.trial_id || 'none';
   console.log(trial_id, 'Preparing to save trial data...');
   responses.save({
-      trialData: data,
-      trial_id: trial_id,
-      studyName: studyName,
+    trial_id: trial_id,
+    study_name: study_name,
+    trial_data: data,
   })
   .then(res.status(200).end());
 });

@@ -1,3 +1,8 @@
+/*
+Custom functions written for CVBE how-to session 03.03.2020
+For help, contact justin.sulik@gmail.com
+*/
+
 function prepareData(experiment_start_time){
   console.log('    Preparing data...');
   var data = {};
@@ -14,9 +19,10 @@ function prepareData(experiment_start_time){
 }
 
 function save(data, dataUrl){
+  console.log('    About to post survey output data...', data);
   var save_attempts = 0;
   var save_timeout = 1000;
-  console.log('    About to post survey output data...', data);
+  var max_attempts = 5;
   dataJSON = JSON.stringify(data);
   $.ajax({
      type: 'POST',
@@ -30,7 +36,7 @@ function save(data, dataUrl){
      error: function(request, status){
        $('#jspsych-content').html("Please wait a few seconds while we save your responses...");
        console.log('    Error posting data...', request, status);
-       if(save_attempts < 5){
+       if(save_attempts < max_attempts){
          save_attempts += 1;
          save_timeout += 500;
          console.log("Trying again, attempt ", save_attempts);
@@ -45,6 +51,7 @@ function save(data, dataUrl){
 }
 
 function finish(completionCode){
+    console.log('    Rerouting to finish page...')
     window.location.href = "/finish?token="+completionCode;
 }
 
@@ -63,6 +70,8 @@ var helper = {
   save: save,
 };
 
+// Handles exports differently, depending whether this script is loaded by node
+// or by client
 if (typeof exports !== 'undefined') {
   if (typeof module !== 'undefined' && module.exports) {
     exports = module.exports = helper;

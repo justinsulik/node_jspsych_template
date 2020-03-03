@@ -24,6 +24,7 @@
     // get the data passed along by app.js
     var input_data = <%- input_data %>
     var trial_id = input_data.trial_id;
+    console.log('Rendering trial ', trial_id)
     // Make a completion code. I add a few simple hallmarks that make it easy to spot whether the code is genuine
     var completionCode = helper.makeCode(3)+'RtR' + helper.makeCode(5) + '4z4';
     var completionCodeEnd = completionCode + '_' + trial_id;
@@ -39,9 +40,10 @@
 
     /*
     Define your trials
+    See tutorial at https://www.jspsych.org/tutorials/rt-task/
     */
 
-    // consent
+    // Consent form
 
     var consent = {
       type: 'external-html',
@@ -77,12 +79,12 @@
     */
 
     timeline.push(instructions);
-    // timeline.push(demo);
+    timeline.push(demo);
 
     /*
-    Have jsPsych display the experment timeline
+    Have jsPsych display the experiment timeline
     */
-
+    
     jsPsych.init({
         // uncomment if you need to preload anything that isn't a stim in an existing jspsych plugin
         // preload_images: [],
@@ -92,8 +94,10 @@
           min_width: 800,
           min_height: 500
         },
+        experiment_width: 800,
         timeline: timeline,
         on_finish: function(){
+          console.log('Experiment completed...')
           var data = helper.prepareData(experiment_start_time);
           helper.save(data, dataUrl);
         }
