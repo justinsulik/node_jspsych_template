@@ -1,0 +1,10 @@
+/* You can add your own styling here
+ */
+ 
+#jspsych-content {
+  width: 900px;
+}
+
+.jspsych-survey-multi-choice-text {
+  text-align: left !important;
+}
