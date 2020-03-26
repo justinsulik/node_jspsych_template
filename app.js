@@ -5,9 +5,7 @@ Useful tips:
 - Once you've created a heroku app, make a note of its name here:
     e.g. shielded-mountain-2347
 - Use 'npm install' to install all modules required below under LOAD MODULES
-- It's not listed in this file, but you also need to use 'npm install mongoose' for the database to work
 */
-
 
 /*
 LOAD MODULES
@@ -66,9 +64,9 @@ ROUTING
 
 app.get('/', (req, res, next) => {
     // Following are MTurk-specific data
-    const worker_id = req.query.worker_id || '';
-    const assignment_id = req.query.assignment_id || '';
-    const hit_id = req.query.hit_id || '';
+    const worker_id = req.query.workerId || '';
+    const assignment_id = req.query.assignmentId || '';
+    const hit_id = req.query.hitId || '';
     // Generate anonymous code to identify this trial
     const trial_id = helper.makeCode(2)+'5'+helper.makeCode(5)+'RtR'+helper.makeCode(4)+'m'+helper.makeCode(2);
     // What browser is the participant using?
