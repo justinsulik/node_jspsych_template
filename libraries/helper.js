@@ -19,10 +19,10 @@ function prepareData(experiment_start_time){
 }
 
 var save_attempts = 0;
+var save_timeout = 3000;
 
 function save(data, dataUrl){
   console.log('    About to post survey output data...', data);
-  var save_timeout = 3000;
   var max_attempts = 5;
   dataJSON = JSON.stringify(data);
   $.ajax({
