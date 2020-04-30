@@ -42,7 +42,7 @@ function save(data, dataUrl){
          save_timeout += 500;
          console.log("Trying again, attempt ", save_attempts);
          setTimeout(function () {
-            save();
+            save(data, dataUrl);
           }, save_timeout);
        } else {
          finish(completionCodeEnd+'_'+save_attempts);
